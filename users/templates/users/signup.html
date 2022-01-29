@@ -1,0 +1,49 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Sign up</title>
+    <style>
+        input::-webkit-outer-spin-button,
+        input::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+
+        input[type=number] {
+            -moz-appearance:textfield;
+        }
+    </style>
+</head>
+<body>
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        <p id="error"></p>
+        <p>First name</p>
+        <input type="text" name="fname" id="First name" onkeyup="validate_name(this)">
+        <p>Last Name</p>
+        <input type="text" name="lname" id="Last name" onkeyup="validate_name(this)">
+        <p>Profile Picture</p>
+        <input type="file" accept="image/*" id="profile_pic" name="profile_pic">
+        <p>Username</p>
+        <input type="text" name="uname" id="uname" onkeyup="validate_username(this)">
+        <p>Email</p>
+        <input type="email" name="useremail" id="useremail" onkeyup="validate_email(this)">
+        <p>Password</p>
+        <input type="password" name="password1" id="password1" onkeyup="validate_password(this)">
+        <p>Confirm password</p>
+        <input type="password" name="password2" id="password2" onkeyup="validate_confirm_password(this)">
+        <p><b>Address Field</b></p>
+        <p>line1</p>
+        <input type="text" name="add_line" id="add_line">
+        <p>City</p>
+        <input type="text" name="city" id="city">
+        <p>State</p>
+        <input type="text" name="state" id="state">
+        <p>Pincode</p>
+        <input type="number" name="pincode" id="pincode" onkeyup="enable_submit()">
+        <p><input type="submit" value="Submit" id="create"></p>
+    </form>
+    <script src="{% static 'users/validation.js' %}"></script>
+</body>
+</html>
