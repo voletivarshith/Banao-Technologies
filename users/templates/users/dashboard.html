@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>User dashboard</title>
+</head>
+<body>
+    <p>{{request.user.user_type}} Profile</p>
+    <img src="{{request.user.profile_pic.url}}" alt="{{request.user.username}}'s profile">
+    <p>{{request.user.first_name}} {{request.user.last_name}}</p>
+    <p>@{{request.user.username}}</p>
+    <p><a href="mailto:{{request.user.email}}">{{request.user.email}}</a></p>
+    <p>Address</p>
+    <p>Line1:{{request.user.line1}}</p>
+    <p>city:{{request.user.city}}</p>
+    <p>state:{{request.user.state}}</p>
+    <p>Pincode:{{request.user.pincode}}</p>
+</body>
+</html>

@@ -8,6 +8,8 @@ class City(models.Model):
     def save(self,*args,**kwargs):
         self.city = self.city.title()
         super().save(*args,**kwargs)
+    class Meta:
+        verbose_name_plural = "Cities"
 
 class State(models.Model):
     state = models.CharField(max_length = 101)
@@ -23,6 +25,7 @@ class User_type(models.Model):
         return self.user_type
 
 class User(AbstractUser):
+    email = models.EmailField(unique=True)
     profile_pic = models.ImageField(upload_to="profile_pics",default="default_img.png")
     # Address fields
     line1 = models.CharField(max_length=1001,blank=True)
@@ -30,7 +33,6 @@ class User(AbstractUser):
     state = models.ForeignKey(State,on_delete=models.PROTECT,null=True,blank=True)
     pincode = models.IntegerField(null=True,blank=True)
     # Doctor or patient
-    user_type = models.ForeignKey(User_type,on_delete=models.SET_NULL,null=True,default=1)
+    user_type = models.ForeignKey(User_type,on_delete=models.SET_NULL,null=True)
     def save(self,*args,**kwargs):
-        print(self.profile_pic.name)
         super().save(*args,**kwargs)

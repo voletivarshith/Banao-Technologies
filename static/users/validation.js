@@ -54,12 +54,16 @@ function validate_password(object){
 function validate_confirm_password(object){
     let password1 = object.value;
     if(password1!=password){
-        error.innerHTML = "Passwords doesnot matched"
+        error.innerHTML = "Passwords does not matched"
     }else{
         error.innerHTML = "";
     }
 }
 
-function enable_submit(){
+function enable_submit(object){
+    let pin_code = object.value
+    if(pin_code.length==6)
     document.getElementById("create").disabled = false;
+    else
+    error.innerHTML = "Pincode should be 6 digits"
 }

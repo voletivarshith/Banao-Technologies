@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Sign up</title>
+    <title>Sign up as {{page}}</title>
     <style>
         input::-webkit-outer-spin-button,
         input::-webkit-inner-spin-button {
@@ -16,9 +16,13 @@
     </style>
 </head>
 <body>
+    <p>Signup as a {{page}}</p>
+    {% for i in messages %}
+        <p>{{i}}</p>
+    {% endfor %}
     <form method="POST" enctype="multipart/form-data">
         {% csrf_token %}
-        <p id="error"></p>
+        <p id="error" style="color:red"></p>
         <p>First name</p>
         <input type="text" name="fname" id="First name" onkeyup="validate_name(this)">
         <p>Last Name</p>
@@ -41,7 +45,7 @@
         <p>State</p>
         <input type="text" name="state" id="state">
         <p>Pincode</p>
-        <input type="number" name="pincode" id="pincode" onkeyup="enable_submit()">
+        <input type="number" name="pincode" id="pincode" onkeyup="enable_submit(this)">
         <p><input type="submit" value="Submit" id="create"></p>
     </form>
     <script src="{% static 'users/validation.js' %}"></script>
