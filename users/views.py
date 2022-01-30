@@ -1,6 +1,6 @@
 from django.shortcuts import render
-from django.views.decorators.csrf import ensure_csrf_cookie
+from django.views.decorators.csrf import csrf_protect
 
-@ensure_csrf_cookie
+@csrf_protect
 def signup(request):
     return render(request,"users/signup.html")
