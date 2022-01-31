@@ -50,7 +50,7 @@ def signup(request):
         return render(request,"users/signup.html",context)
 
 def user_login(request):
-    path = request.path.split('/')[2]
+    path = request.path.split('/')[2].title()
     context = {'path':path}
     if request.method=="POST":
         email = request.POST.get("email")
@@ -59,7 +59,7 @@ def user_login(request):
             user_type_obj = User_type.objects.get(user_type__iexact=path)
         except:
             return HttpResponse("User type not decleared please contact admin")
-        auth_user = authenticate(request,username=email,email=email,password=password,user_type_obj=user_type_obj)
+        auth_user = authenticate(request,email=email,password=password,user_type_obj=user_type_obj)
         if auth_user:
             login(request,auth_user)
             return redirect("dashboard")
