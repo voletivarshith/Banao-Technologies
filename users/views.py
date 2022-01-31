@@ -50,8 +50,8 @@ def signup(request):
         return render(request,"users/signup.html",context)
 
 def user_login(request):
-    path = request.path.split('/')[2].title()
-    context = {'path':path}
+    path = request.path.split('/')[2]
+    context = {'path':path.title()}
     if request.method=="POST":
         email = request.POST.get("email")
         password = request.POST.get("password")
