@@ -27,7 +27,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'users'
+    'users',
+    'Blog',
 ]
 
 MIDDLEWARE = [
@@ -116,7 +117,10 @@ STATIC_URL = '/static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 STATICFILES_DIRS = [BASE_DIR / "static",]
 AUTH_USER_MODEL = "users.User"
-AUTHENTICATION_BACKENDS = ['users.backend.EmailBackend']
+AUTHENTICATION_BACKENDS = ['users.backend.EmailBackend','users.backend.AdminBackend']
 MEDIA_URL = "profile_pics/"
 MEDIA_LOCATION = "profile_pics/"
 STATIC_LOCATION = "static/"
+
+LOGIN_URL = "login-patient"
+LOGIN_REDIRECT_URL = "dashboard"

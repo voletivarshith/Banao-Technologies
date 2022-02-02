@@ -1,0 +1,10 @@
+from django import template
+
+register = template.Library()
+@register.filter(name="split")
+def split_and_divide(string,count):
+    string = string.split()
+    if len(string)>15:
+        return ' '.join(string[:15])+"..."
+    else:
+        return string

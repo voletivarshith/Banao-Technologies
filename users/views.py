@@ -4,7 +4,7 @@ from .models import User,City,State,User_type
 from django.contrib import messages
 from django.contrib.auth import authenticate,login
 from django.http import HttpResponse
-def home(request):
+def home_page(request):
     return render(request,"users/home.html")
 def signup_validation(request,signup_query_dict,user_type_obj):
     if User.objects.filter(username=signup_query_dict.get("uname")).exists():
@@ -62,7 +62,10 @@ def user_login(request):
         auth_user = authenticate(request,email=email,password=password,user_type_obj=user_type_obj)
         if auth_user:
             login(request,auth_user)
-            return redirect("dashboard")
+            if str(user_type_obj)=="Doctor":
+                return redirect("dashboard")
+            elif str(user_type_obj)=="Patient":
+                return redirect("home")
         else:
             messages.error(request,"Invalid credentials")
             return redirect("login-"+path)

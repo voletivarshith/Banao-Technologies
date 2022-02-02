@@ -1,0 +1,21 @@
+{% load blog_tags %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Home</title>
+</head>
+<body>
+    {% if doctor_posts %}
+        <p><a href="{% url 'create-post' %}">Create post</a></p>
+        {% for i in doctor_posts %}
+            <p><a href="#">{{i.title}}</a></p>
+            {% if i.image %}
+                <img src="{{i.image.url}}" alt="{{i.title}}'s image">
+            {% endif %}
+            <p id="content">{{i.summary|split:" "}}</p>
+        {% endfor %}
+    {% else %}
+        <p>No posts <a href="{% url 'create-post' %}">Create post</a></p>
+    {% endif %}
+</body>
+</html>

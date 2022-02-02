@@ -13,3 +13,18 @@ class EmailBackend(ModelBackend):
             if user_obj.check_password(password) and super().user_can_authenticate(user_obj) :
                 return user_obj
         return None
+
+
+class AdminBackend(ModelBackend):
+    def authenticate(self,request,username=None,password=None,**kwargs):
+        if not(username and password):
+            return None
+        else:
+            try:
+                user_obj = User.objects.get(email__iexact=username)
+            except:
+                return None
+            if user_obj.check_password(password) and super().user_can_authenticate(user_obj):
+                if user_obj.is_superuser:
+                    return user_obj
+        return None
