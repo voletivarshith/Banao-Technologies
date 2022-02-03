@@ -5,8 +5,12 @@
     <title>Home</title>
 </head>
 <body>
+    {% if request.user.user_type|str == "Doctor" %}
+        <p><a href="{% url 'create-post' %}">Create Post</a></p>
+        <p><a href="{% url 'your-posts' %}">Your Posts</a></p>
+        <p><a href="{% url 'drafts' %}">Drafts</a></p>
+    {% endif %}
     {% if doctor_posts %}
-        <p><a href="{% url 'create-post' %}">Create post</a></p>
         {% for i in doctor_posts %}
             <p><a href="#">{{i.title}}</a></p>
             {% if i.image %}
@@ -15,7 +19,7 @@
             <p id="content">{{i.summary|split:" "}}</p>
         {% endfor %}
     {% else %}
-        <p>No posts <a href="{% url 'create-post' %}">Create post</a></p>
+        <p>No posts </p>
     {% endif %}
 </body>
 </html>

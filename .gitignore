@@ -3,7 +3,7 @@ __pycache__/
 *.py[cod]
 *$py.class
 
-# C extensions
+post_pics/
 *.so
 *.png
 profile_pics/

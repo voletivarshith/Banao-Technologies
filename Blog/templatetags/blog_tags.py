@@ -7,4 +7,8 @@ def split_and_divide(string,count):
     if len(string)>15:
         return ' '.join(string[:15])+"..."
     else:
-        return string
+        return ' '.join(string)
+
+@register.filter(name="str")
+def tostring(string):
+    return str(string)

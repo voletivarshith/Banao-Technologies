@@ -62,10 +62,7 @@ def user_login(request):
         auth_user = authenticate(request,email=email,password=password,user_type_obj=user_type_obj)
         if auth_user:
             login(request,auth_user)
-            if str(user_type_obj)=="Doctor":
-                return redirect("dashboard")
-            elif str(user_type_obj)=="Patient":
-                return redirect("home")
+            return redirect("home")
         else:
             messages.error(request,"Invalid credentials")
             return redirect("login-"+path)

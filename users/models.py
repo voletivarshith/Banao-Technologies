@@ -33,6 +33,6 @@ class User(AbstractUser):
     state = models.ForeignKey(State,on_delete=models.PROTECT,null=True,blank=True)
     pincode = models.IntegerField(null=True,blank=True)
     # Doctor or patient
-    user_type = models.ForeignKey(User_type,on_delete=models.PROTECT)
+    user_type = models.ForeignKey(User_type,on_delete=models.PROTECT,null=True)
     def save(self,*args,**kwargs):
         super().save(*args,**kwargs)

@@ -4,10 +4,24 @@
     <title>Create Post</title>
 </head>
 <body>
-    <form method="POST">
+    {% for i in messages %}
+        <p>{{i}}</p>
+    {% endfor %}
+    <form method="POST" enctype='multipart/form-data'>
         {% csrf_token %}
         {{form.as_p}}
+        <button onclick="generate_post()">
+            Save to  draft
+        </button>
         <input type="submit" value="Create Post">
     </form>
+    <script>
+        function generate_post(){
+            let form_method=document.getElementsByTagName("form")[0]
+            form_method.method="POST"
+            form_method.action="{% url 'save-post' %}"
+            form_method.submit()
+        }
+    </script>
 </body>
 </html>
