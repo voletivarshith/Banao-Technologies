@@ -67,11 +67,11 @@ def save_post(request):
 @login_required
 @user_passes_test(doctor_access)
 def your_posts(request):
-    context = {"posts":Post.objects.filter(post_user=request.user)}
+    context = {"posts":Post.objects.filter(post_user=request.user,posted=True)}
     return render(request,"Blog/your_posts.html",context)
 
 @login_required
 @user_passes_test(doctor_access)
 def drafts(request):
-    context = {"posts":Post.objects.filter(posted=False)}
+    context = {"posts":Post.objects.filter(posted=False,post_user=request.user)}
     return render(request,"Blog/drafts.html",context)
