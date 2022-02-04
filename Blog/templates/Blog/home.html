@@ -9,17 +9,19 @@
         <p><a href="{% url 'create-post' %}">Create Post</a></p>
         <p><a href="{% url 'your-posts' %}">Your Posts</a></p>
         <p><a href="{% url 'drafts' %}">Drafts</a></p>
-    {% endif %}
-    {% if doctor_posts %}
-        {% for i in doctor_posts %}
-            <p><a href="#">{{i.title}}</a></p>
-            {% if i.image %}
-                <img src="{{i.image.url}}" alt="{{i.title}}'s image">
-            {% endif %}
-            <p id="content">{{i.summary|split:" "}}</p>
-        {% endfor %}
     {% else %}
-        <p>No posts </p>
+        {% for i in category %}
+            {% if i.post_set.all %}
+                <h2>Posts related to {{i}}</h2>
+                {% for j in i.post_set.all %}
+                        <p><a href="#">{{j.title}}</a></p>
+                        {% if j.image %}
+                            <img src="{{j.image.url}}" alt="{{j.title}} post image">
+                        {% endif %}
+                        <p id="content">{{j.summary|split:15}}</p>
+                {% endfor %}
+            {% endif %}
+        {% endfor %}
     {% endif %}
 </body>
 </html>

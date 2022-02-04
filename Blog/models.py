@@ -15,8 +15,8 @@ class Post(models.Model):
     category = models.ForeignKey(PostCategory,null=True,on_delete=models.SET_NULL)
     post_user = models.ForeignKey(User,on_delete=models.CASCADE,default=1)
     title_slug = models.SlugField(max_length=101)
-    content = models.TextField(max_length=500)
-    summary = models.TextField(max_length=5001)
+    content = models.TextField(max_length=5000)
+    summary = models.TextField(max_length=501)
     date_time = models.DateTimeField(auto_now_add=True)
     posted = models.BooleanField(default=False)
     def save(self,*args,**kwargs):

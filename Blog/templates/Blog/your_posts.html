@@ -4,8 +4,13 @@
     <title>Your Posts</title>
 </head>
 <body>
-    {% for i in posts %}
-        <p><a href="#">{{i.title}}</a></p>
-    {% endfor %}
+    {% if posts %}
+        {% for i in posts %}
+            <p><a href="#">{{i.title}}</a></p>
+            <p><a href="#">Update </a> <a href="#">Delete</a></p>
+        {% endfor %}
+    {% else %}
+        <p>you have no posts <a href="{% url 'create-post' %}">Create Post</a></p>
+    {% endif %}
 </body>
 </html>

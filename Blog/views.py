@@ -16,7 +16,7 @@ def doctor_access(user):
 @login_required
 def home(request):
     context = {}
-    context['doctor_posts'] = Post.objects.filter(posted=True).exclude(post_user=request.user)
+    context["category"] = PostCategory.objects.all().order_by("category")
     return render(request,"Blog/home.html",context)
 
 @login_required

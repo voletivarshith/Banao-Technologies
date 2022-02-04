@@ -4,8 +4,13 @@
     <title>Drafts post</title>
 </head>
 <body>
-    {% for i in posts %}
-        <p><a href="#">{{i}}</a></p>
-    {% endfor %}
+    {% if posts %}
+        <p>Drafts</p>
+        {% for i in posts %}
+            <p><a href="#">{{i}}</a></p>
+        {% endfor %}
+    {% else %}
+        <p>You have no posts</p>
+    {% endif %}
 </body>
 </html>
