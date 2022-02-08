@@ -2,6 +2,7 @@ from django.contrib import admin
 from django.urls import path
 from users.views import home_page,signup,user_login,dashboard
 from Blog.views import home,create_post,your_posts,save_post,drafts
+from appointment.views import doctors,book_appointment,testing
 from django.conf.urls.static import static
 from django.conf import settings
 urlpatterns = [
@@ -16,7 +17,9 @@ urlpatterns = [
     path("create-post/",create_post,name="create-post"),
     path("your-posts/",your_posts,name="your-posts"),
     path("save-post/",save_post,name="save-post"),
-    path("drafts/",drafts,name="drafts")
+    path("drafts/",drafts,name="drafts"),
+    path("doctors/",doctors,name="doctors"),
+    path("book-appointment/<str:doctor>/",book_appointment,name="book-appointment"),
 ]
 
 urlpatterns = urlpatterns + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

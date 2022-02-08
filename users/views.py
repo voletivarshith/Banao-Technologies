@@ -4,33 +4,15 @@ from .models import User,City,State,User_type
 from django.contrib import messages
 from django.contrib.auth import authenticate,login
 from django.http import HttpResponse
+from .validators import signup_validation
+from googleapiclient.discovery import build
+from google.auth.transport.requests import Request
+from google.oauth2.credentials import Credentials
+from google_auth_oauthlib.flow import InstalledAppFlow
+import pickle
+
 def home_page(request):
     return render(request,"users/home.html")
-def signup_validation(request,signup_query_dict,user_type_obj):
-    if User.objects.filter(username=signup_query_dict.get("uname")).exists():
-            messages.error(request,"Username already exists please try with different username")
-            return 1
-    if User.objects.filter(email=signup_query_dict.get("useremail")).exists():
-        messages.error(request,"Email already exisits")
-        return 1
-    city_obj,created = City.objects.get_or_create(city=signup_query_dict.get("city").title())
-    state_obj,created = State.objects.get_or_create(state=signup_query_dict.get("state").title())
-    user_obj = User(
-        first_name = signup_query_dict.get("fname",default=''),
-        last_name = signup_query_dict.get("lname",default = ''),
-        username = signup_query_dict.get("uname"),
-        email = signup_query_dict.get("useremail"),
-        line1 = signup_query_dict.get("add_line"),
-        city = city_obj,
-        state = state_obj,
-        pincode = signup_query_dict.get("pincode"),
-    )
-    if request.FILES.get("profile_pic"):
-        user_obj.profile_pic = request.FILES.get("profile_pic")
-    user_obj.set_password(signup_query_dict.get("password1"))
-    user_obj.user_type = user_type_obj
-    user_obj.save()
-    return 0
 @csrf_protect
 def signup(request):
     page = request.path.split("/")[-2]
@@ -40,10 +22,18 @@ def signup(request):
         try:
             user_type_obj = User_type.objects.get(user_type__iexact=page)
         except:
+            User_type_obj = None
             return HttpResponse("User type not decleared please contact admin")
         res = signup_validation(request,signup_query_dict,user_type_obj)
-        if res:
+        if res==0:
             return redirect("signup-"+page)
+        res.save()
+        print(res)
+        if str(user_type_obj)=="Doctor":
+            scopes = ["https://www.googleapis.com/auth/calendar"]
+            flow = InstalledAppFlow.from_client_secrets_file("Oauth\\client_secret.json", scopes=scopes)
+            creds = flow.run_local_server(server="localhost",port=8004)
+            pickle.dump(creds, open(f"Oauth\\{res.id}_token.pkl", "wb"))
         messages.success(request,"Successfully created account now you can login to your account")
         return redirect('login-'+page)
     else:
@@ -52,6 +42,7 @@ def signup(request):
 def user_login(request):
     path = request.path.split('/')[2]
     context = {'path':path.title()}
+    scopes = ["https://www.googleapis.com/auth/calendar"]
     if request.method=="POST":
         email = request.POST.get("email")
         password = request.POST.get("password")

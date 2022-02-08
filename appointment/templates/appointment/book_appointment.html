@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Book Appointment</title>
+</head>
+<body onload="setdate()">
+    <h2>Booking appointment with doctor {{doctor_user}}</h2>
+    {% for i in messages %}
+        <p>{{i}}</p>
+    {% endfor %}
+    <form method="POST">
+        {% csrf_token %}
+        <p>Required Speciality</p>
+        <select name="speciality">
+            {% for i in speciality %}
+                <option value="{{i}}">{{i}}</option>
+            {% endfor %}
+        </select>
+        <p>Date of Appointment</p>
+        <input type="date" name="app_date" min="{{min_date}}" max="{{max_date}}" required>
+        <p>Start Time of Appointment</p>
+        <input type="time" name="app_time" min="09:00" max="14:00" required>
+        <p style="color:red;font-size:10px;">Note the doctors in the hospital are available between 9:00 to 14:00</p>
+        
+        <input type="submit" value="Book Appointment">
+    </form>
+    <script>
+        function setdate(){
+            console.log("Hey")
+            let object = document.getElementById("date_field")
+            let today = new Date();
+            today = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
+            object.setAttribute("min",today)
+            let max_date = new Date(new Date().getTime()+(5*24*60*60*1000));
+            object.setAttribute("max",(max_date.getFullYear())+'-'+(max_date.getMonth()+1)+'-'+(max_date.getDate()))
+        }
+    </script>
+</body>
+</html>

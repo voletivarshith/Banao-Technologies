@@ -4,14 +4,9 @@ from .forms import PostForm
 from django.contrib import messages
 from django.contrib.auth.decorators import user_passes_test,login_required
 from users.models import User_type
+from users.decorators import doctor_access
 
 
-def doctor_access(user):
-    doctor = User_type.objects.get(user_type="Doctor")
-    if user.user_type==doctor:
-        return True
-    else:
-        return False
 
 @login_required
 def home(request):

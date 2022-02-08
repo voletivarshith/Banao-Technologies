@@ -88,6 +88,7 @@ celerybeat.pid
 .env
 .venv
 env/
+Oauth/
 venv/
 ENV/
 env.bak/

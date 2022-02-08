@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Doctors</title>
+</head>
+<body>
+    {% for i in messages %}
+        <p>{{i}}</p>
+    {% endfor %}
+    {% for i in doctors %}
+        <img src="{{i.profile_pic.url}}">
+        <p>{{i.username}}</p>
+        <p><a href="{% url 'book-appointment' doctor=i.username %}">Book Appointment</a></p>
+    {% endfor %}
+</body>
+</html>
