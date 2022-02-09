@@ -6,11 +6,11 @@
 </head>
 <body>
     {% for i in messages %}
-        <p>{{i}}</p>
+        <p style="color:green;">{{i}}</p>
     {% endfor %}
-    <h2>{{appointment_obj.doctor}}</h2>
-    <p>{{appointment_obj.appointment_date}}</p>
-    <p>{{appontment_obj.appointment_start_time}}</p>
-    <p>{{appontment_obj.appointment_end_time}}</p>
+    <p>Doctor <b>{{appointment_obj.doctor}}</b></p>
+    <p>Appointment date <b>{{appointment_obj.appointment_date|date:"d l m Y"}}</b></p>
+    <p>Appointment start time <b>{{appointment_obj.appointment_start_time|date:"G:i"}}</b></p>
+    <p>Appointment End time <b>{{appointment_obj.appointment_end_time|date:"G:i"}}</b></p>
 </body>
 </html>

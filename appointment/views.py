@@ -40,7 +40,6 @@ def book_appointment(request,doctor):
         time = request.POST.get("app_time").split(":")
         date_obj = datetime.datetime(int(date[0]), int(date[1]),int(date[2]))
         time_obj = datetime.time(int(time[0]),int(time[1]))
-        print(date_obj,time_obj)
         try:
             speciality_obj = Speciality.objects.get(speciality=speciality)    
         except:
@@ -53,7 +52,6 @@ def book_appointment(request,doctor):
         #have to add google calander event function
         set_calendar_event(request,date,time,doctor_user,)
         messages.success(request,"Your appointment has booked successfully")
-        print(str(appointment_obj.appointment_start_time))
         context = {"appointment_obj":appointment_obj}
         return render(request,"appointment/confirmation.html",context)
     today = datetime.date.today()+datetime.timedelta(days=1)
@@ -64,22 +62,3 @@ def book_appointment(request,doctor):
     context["doctor_user"] = doctor_user
     return render(request,"appointment/book_appointment.html",context)
 
-
-def testing(request):
-  scopes = ['https://www.googleapis.com/auth/calendar']
-  flow = InstalledAppFlow.from_client_secrets_file("Oauth\\client_secret.json", scopes=scopes)
-  creds = flow.run_local_server(server="localhost",port=8004)
-  pickle.dump(creds, open("token.pkl", "wb"))
-  credentials = pickle.load(open("token.pkl", "rb"))
-  service = build("calendar", "v3", credentials=credentials)
-  result = service.calendarList().list().execute()
-  start_time = datetime.datetime(2019, 5, 12, 19, 30, 0)
-  end_time = start_time + datetime.timedelta(hours=4)
-  timezone="Asia/Kolkata"
-  
-  calendar_id = service.calendarList().list().execute()["items"]
-  print(calendar_id)
-  # print(service.calendarList().get(calendarId="calendar_id").execute())
-  service.events().insert(calendarId="varshithvoleti@gmail.com", body=event).execute()
-
-  return redirect("home")

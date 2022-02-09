@@ -2,7 +2,7 @@ from django.contrib import admin
 from django.urls import path
 from users.views import home_page,signup,user_login,dashboard
 from Blog.views import home,create_post,your_posts,save_post,drafts
-from appointment.views import doctors,book_appointment,testing
+from appointment.views import doctors,book_appointment
 from django.conf.urls.static import static
 from django.conf import settings
 urlpatterns = [
